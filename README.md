@@ -1,6 +1,9 @@
 # Power Outage Analysis
 ---
 ---
+Dec 7, 2024
+By Adam Simpson
+
 ## Introduction
 
 This project investigates a dataset documenting major power outages in the  U.S. from January 2000 to July 2016. The dataset provides details about outages' causes, geographical locations, climatic conditions, economic impacts, and characteristics of the affected areas. 
