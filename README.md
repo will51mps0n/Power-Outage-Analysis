@@ -283,12 +283,6 @@ The grid search optimized the model’s performance while preventing overfitting
 - **MAE:** $30,012.54
 - **RMSE:** $57,467.16
 
-#### Performance Comparison
-| Metric          | Baseline Model (Linear Regression) | Final Model (Random Forest) |
-|------------------|------------------------------------|-----------------------------|
-| **MAE**         | $196,893.50                        | $30,012.54                 |
-| **RMSE**        | $317,437.32                        | $57,467.16                 |
-
 The final model's performance indicates a strong ability to predict outage costs accurately, driven by its ability to handle non-linearities and feature interactions.
 
 The final model substantially outperforms the baseline model, reducing the RMSE by over 80%. This improvement reflects the Random Forest's ability to model complex relationships and capture the interactions of data in the outages data set
@@ -300,7 +294,7 @@ The final model substantially outperforms the baseline model, reducing the RMSE 
 The final model is decent at predicting costs.
 1. It demonstrates a significant reduction in prediction errors compared to the baseline.
 2. Cross-validation ensured robustness, reducing the likelihood of overfitting.
-3. The errors in price are relativeely small in scale to total costs of outages, which can be in the millions.
+3. The errors in price are relatively small in scale to total costs of outages, which can be in the millions.
 
 <iframe src="assets/model_performance.html" width="800" height="600" frameborder="0"></iframe>
 
