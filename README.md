@@ -1,7 +1,5 @@
-# Power_Outages_Analysis
+# Power Outage Analysis
 ---
-layout: page
-title: Power Outage Analysis
 ---
 
 # Power Outage Analysis
