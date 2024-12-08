@@ -218,11 +218,7 @@ Next, I explored the relationship between the number of customers affected and t
 This highlights:
 - **High-Impact Events:** Severe weather and fuel supply emergencies often cluster in the high-cost, high-impact range, showing their significant financial burden.
 - **Variability in Costs:** Outages caused by intentional attacks show a wide range of costs despite affecting fewer customers, reflecting localized but costly impacts.
-
 <iframe src="assets/cost_vs_customers.html" width="800" height="600" frameborder="0"></iframe>
-
----
-
 ## Model Pipeline
 
 ### Baseline Model
