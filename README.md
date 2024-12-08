@@ -1,6 +1,7 @@
 # Power Outage Analysis
 ---
 Dec 7, 2024
+
 By Adam Simpson
 
 ## Introduction
