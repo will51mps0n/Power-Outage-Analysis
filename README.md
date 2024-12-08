@@ -46,8 +46,6 @@ The data set contains 36 rows and over 1000 outages. For this analysis, I concen
 
 ## **Data Cleaning and Exploratory Data Analysis**
 
-### **Data Cleaning**
-
 The first step in this analysis was preparing the dataset for effective analysis. This involved selecting relevant columns, combining date and time information, handling missing values, and engineering new features.
 
 #### **Steps Taken**
@@ -184,9 +182,8 @@ This pivot table analysis complements the broader exploration of energy usage an
 Next, I explored the relationship between the number of customers affected and the total cost of outages. I chose this analysis to identify how customer impact translates into financial loss. The scatter plot below reveals a strong positive relationship between these two variables, where larger outages tend to mean higher costs. 
 
 <iframe src="assets/cost_vs_customers.html" width="800" height="600" frameborder="0"></iframe>
-## Model Pipeline
 
-#### Baseline Model Setup
+### Baseline Model Setup
 
 To create a baseline for predicting the total cost of power outages, I used a **Linear Regression model**. This model provides a benchmark for understanding the relationships between the features and the response variable, `TOTAL.COST`.
 
