@@ -1,9 +1,6 @@
 # Power Outage Analysis
 ---
 ---
-
-# Power Outage Analysis
-
 ## Introduction
 
 This project investigates a dataset documenting major power outages in the  U.S. from January 2000 to July 2016. The dataset provides details about outages' causes, geographical locations, climatic conditions, economic impacts, and characteristics of the affected areas. 
@@ -98,48 +95,13 @@ The first step in this analysis was preparing the dataset for effective analysis
 
 ---
 
-### Research Question
-**What factors most influence the cost of power outages, and how can these insights guide decision-making?**
-
-### Dataset Summary
-- **Rows**: 10,000
-- **Columns**: 30
-- **Relevant Columns**:
-  - **`TOTAL.COST`**: Total financial impact of the outage (USD).
-  - **`CAUSE.CATEGORY`**: The primary cause of the outage.
-  - **`TOTAL.CUSTOMERS`**: Total customers affected.
-  - **`ANOMALY.LEVEL`**: Severity of the anomaly (low, medium, high).
-
----
-
-## Data Cleaning
-
-The raw dataset contained various issues, including missing values and redundant columns. Cleaning steps included:
-
-1. **Removed unnecessary columns**: Kept only columns relevant to the research question.
-2. **Combined columns**: Created `TOTAL.CUSTOMERS` by summing residential, commercial, and industrial customers.
-3. **Imputed missing values**:
-   - Median imputation for `ANOMALY.LEVEL`.
-   - Forward fill for datetime columns.
-4. **Generated new features**:
-   - `ANOMALY_BIN`: Binned `ANOMALY.LEVEL` into low, medium, and high categories.
-
-### Cleaned Dataset Preview
-| U.S._STATE | TOTAL.CUSTOMERS | ANOMALY.LEVEL | TOTAL.COST |
-|------------|------------------|---------------|------------|
-| Minnesota  | 2,600,000        | -0.3          | 608,669.51 |
-| Minnesota  | 2,640,000        | -0.1          | 490,402.27 |
-| Minnesota  | 2,590,000        | -1.5          | 425,496.19 |
-
----
 
 ## Exploratory Data Analysis
 
 ### Univariate Analysis
 
 #### Number of Outages by Cause
-First, I analyzed the frequency of outages by their cause to understand the primary drivers of power disruptions. The bar chart below shows that **severe weather** is the most common cause, followed by **equipment failure** and **intentional attacks**. Severe weather dominates due to its widespread and recurring nature, such as hurricanes, storms, and heatwaves. 
-
+First, I analyzed the frequency of outages by their cause to understand the primary drivers of power disruptions. The bar chart below shows that **severe weather** is the most common cause, followed by **equipment failure** and **intentional attacks**. 
 - **Severe Weather:** Infrastructure needs better resistance to natural disasters.
 - **Equipment Failure:** Indicates maintenance gaps.
 - **Intentional Attacks:** Highlights to the importance of improving grid security.
@@ -191,15 +153,18 @@ I next wanted to look at different cost predictors and cause categories. The sum
 To gain insight into how climate conditions might influence electricity prices and sales, I created a **pivot table** to summarize the average residential, commercial, and industrial electricity prices and sales across different climate categories. This analysis aims to identify patterns in energy usage and pricing under varying climatic conditions.
 
 #### Table of Results:
-| Climate Category | Avg Res Price | Avg Com Price | Avg Ind Price | Avg Res Sales | Avg Com Sales | Avg Ind Sales |
+
+
+| Climate Category  | Avg Res Price | Avg Com Price | Avg Ind Price | Avg Res Sales | Avg Com Sales | Avg Ind Sales |
 |-------------------|---------------|---------------|---------------|---------------|---------------|---------------|
 | Cold              | 11.90         | 10.15         | 7.40          | 4.33e+06      | 4.31e+06      | 2.72e+06      |
 | Normal            | 12.06         | 10.16         | 7.38          | 4.10e+06      | 4.23e+06      | 2.79e+06      |
 | Warm              | 11.87         | 10.04         | 7.16          | 4.93e+06      | 5.08e+06      | 2.94e+06      |
 
+
 #### Key Observations:
 1. **Prices:**
-   - The average residential price is highest in the "Normal" climate category (12.06 cents/kWh), slightly above "Cold" and "Warm" categories.
+   - The average residential price is highest in the "Normal" climate category (12.06 cents/kWh), slightly above "Cold" and "Warm".
    - Commercial and industrial prices are slightly lower in the "Warm" category compared to "Cold" and "Normal."
 
 2. **Sales:**
@@ -207,8 +172,8 @@ To gain insight into how climate conditions might influence electricity prices a
    - Industrial sales are also highest in the "Warm" category, potentially due to higher operational energy demands in warmer climates.
 
 #### Analysis and Insights:
-- Warmer climates seem to drive higher electricity consumption across all customer types, likely due to cooling demands and other seasonal factors.
-- Prices remain relatively stable across climate categories, with only minor fluctuations observed, suggesting a more uniform pricing strategy regardless of climatic variations.
+- Warmer climates seem to drive higher electricity consumption across all customer types, likely due to cooling demands.
+- Prices remain relatively stable across climate categories, with only minor fluctuations observed.
 
 This pivot table analysis complements the broader exploration of energy usage and pricing by highlighting potential regional and seasonal patterns, which are crucial for forecasting and policy-making.
 
@@ -216,73 +181,124 @@ This pivot table analysis complements the broader exploration of energy usage an
 Next, I explored the relationship between the number of customers affected and the total cost of outages. I chose this analysis to identify how customer impact translates into financial loss. The scatter plot below reveals a strong positive relationship between these two variables, where larger outages tend to mean higher costs. 
 
 This highlights:
-- **High-Impact Events:** Severe weather and fuel supply emergencies often cluster in the high-cost, high-impact range, showing their significant financial burden.
-- **Variability in Costs:** Outages caused by intentional attacks show a wide range of costs despite affecting fewer customers, reflecting localized but costly impacts.
+- **High-Impact Events:** Severe weather and fuel supply emergencies often cluster in the high-cost, high-impact range, they are therefore typically expensive.
+- **Variability in Costs:** Outages caused by intentional attacks show a wide range of costs despite affecting fewer customers, reflecting localized but costly impacts - these are likely harder to model.
 <iframe src="assets/cost_vs_customers.html" width="800" height="600" frameborder="0"></iframe>
 ## Model Pipeline
 
-### Baseline Model
-The baseline model used a **RandomForestRegressor** with basic features:
-- **Features**:
-  - Quantitative: `TOTAL.CUSTOMERS`, `CUSTOMERS.AFFECTED`.
-  - Nominal: `CAUSE.CATEGORY`.
-- **Performance**:
-  - **MAE**: $50,000
-  - **RMSE**: $70,000
+#### Baseline Model Setup
+
+To create a baseline for predicting the total cost of power outages, I used a **Linear Regression model**. This model provides a benchmark for understanding the relationships between the features and the response variable, `TOTAL.COST`.
+
+### Features and Target Variable
+The features and target variable selected for the baseline model:
+- **Features:**
+  - `U.S._STATE` (categorical)
+  - `CUSTOMERS.AFFECTED` (numerical)
+  - `CAUSE.CATEGORY` (categorical)
+  - `ANOMALY.LEVEL` (numerical)
+- **Target Variable:**
+  - `TOTAL.COST` (numerical)
+
+### Justification of Feature Selection
+It is important to ensure that all features included in the model would be available at the time of prediction. In this case, they are:
+- **`CUSTOMERS.AFFECTED`:** This metric is often reported during or shortly after an outage begins, making it realistic for prediction purposes. Its easy to estimate based on data that is always available.
+- **`CAUSE.CATEGORY`:** This is an attribute assigned based on the nature of the outage, which is typically known early in the process.
+- **`ANOMALY.LEVEL`:** This metric, derived from climate data, is known prior to or during the outage.
+- **`U.S._STATE`:** The location of the outage.
+
+By ensuring that features do not rely on future information such as total restoration time, the model aligns with real-world constraints.
 
 ---
 
-### Final Model
-## Model Pipeline: Random Forest Regressor
+### Model Description
 
-The **RandomForestRegressor** was chosen for its robustness in capturing complex relationships within the dataset. This ensemble method is particularly well-suited for data with both numerical and categorical features, as well as non-linear interactions.
+For the final model, I implemented a **Random Forest Regressor**, a flexible and robust ensemble learning method that handles non-linear relationships and interactions between features. Random forests are well-suited for this prediction task due to their ability to handle both categorical and numerical data and avoid overfitting through bagging.
 
-### Key Hyperparameters Tuned
+### Features in the Final Model
+The following features were used:
+1. **Quantitative Features (6):**
+   - `CUSTOMERS.AFFECTED`
+   - `ANOMALY.LEVEL`
+   - `RES.PRICE` (Residential electricity price)
+   - `COM.PRICE` (Commercial electricity price)
+   - `IND.PRICE` (Industrial electricity price)
+   - `TOTAL.CUSTOMERS` (Sum of residential, commercial, and industrial customers)
+   
+2. **Ordinal Features (1):**
+   - `ANOMALY_BIN` (Binned anomaly levels into "Low," "Medium," and "High")
 
-To optimize the model's performance, the following hyperparameters were tuned using GridSearchCV:
+3. **Nominal Features (4):**
+   - `U.S._STATE`
+   - `CAUSE.CATEGORY`
+   - `CAUSE.CATEGORY.DETAIL`
+   - `CLIMATE.CATEGORY`
 
-- **`n_estimators`**: 200  
-  Represents the number of trees in the forest. Increasing this value improves stability but also increases computational cost.
-  
-- **`max_depth`**: 30  
-  Limits the depth of each decision tree to prevent overfitting while capturing sufficient complexity.
-  
-- **`max_features`**: 0.5  
-  Specifies the fraction of features considered for splitting at each node, balancing accuracy and diversity among the trees.
-
-These hyperparameters were fine-tuned based on 5-fold cross-validation to ensure optimal performance on unseen data.
+### Encoding and Data Preprocessing
+- **Quantitative Features:** Imputed missing values with the median and scaled using `StandardScaler`.
+- **Ordinal Features:** Encoded using integer mappings (e.g., "Low" = 0, "Medium" = 1, "High" = 2).
+- **Nominal Features:** One-hot encoded using `OneHotEncoder` to convert categories into dummy variables.
+The preprocessing ensured the model handled mixed data types effectively. Other data changes were inhereted from the baseline model.
 
 ---
 
-## Model Performance
+### Feature Engineering
+1. **`TOTAL.CUSTOMERS`:** Summed across residential, commercial, and industrial customers. This feature captures the total customer base impacted by the outage.
+2. **`ANOMALY_BIN`:** Categorized the continuous `ANOMALY.LEVEL` feature into bins ("Low," "Medium," "High") to identify patterns in anomalies' impact on cost.
 
-The final model demonstrated strong predictive capabilities on the test set, effectively identifying patterns and trends across key features. Performance metrics included:
+These features were selected based on their relevance to the data generating process. `TOTAL.CUSTOMERS` directly measures scale, while `ANOMALY_BIN` simplifies understanding of climate-related influences.
 
-- **Mean Absolute Error (MAE)**: $30,178.28  
-  Reflects the average absolute deviation of predictions from actual values.
+---
 
-- **Root Mean Squared Error (RMSE)**: $56,496.68  
-  Emphasizes larger prediction errors, indicating the presence of some outliers that require further investigation.
+### Model Selection and Hyperparameter Tuning
 
-### Strengths:
-- Successfully captures the relationships between key features such as `COM.SALES` and `POPULATION` with the target variable, `TOTAL.COST`.
-- Robust against overfitting due to hyperparameter tuning.
+The **Random Forest Regressor** was optimized using **GridSearchCV** with the following hyperparameter search space:
+- **`n_estimators` (number of trees):** [100, 200, 300]
+- **`max_depth` (maximum tree depth):** [10, 20, 30]
+- **`max_features` (maximum features to consider):** [0.5, "sqrt", "log2"]
+- **`min_samples_split` (minimum samples to split):** [2, 5, 10]
+- **`min_samples_leaf` (minimum samples per leaf):** [1, 2, 4]
 
-### Challenges:
-- Outliers in the data introduce variability in predictions, slightly increasing the RMSE compared to the MAE.
+After 5-fold cross-validation, the best-performing hyperparameters were:
+- `n_estimators`: 200
+- `max_depth`: 30
+- `max_features`: 0.5
+- `min_samples_split`: 2
+- `min_samples_leaf`: 1
 
-- **Predicted vs Actual Costs**:
+The grid search optimized the model’s performance while preventing overfitting.
+
+---
+
+### Performance Metrics
+
+**Baseline Model Performance (Linear Regression):**
+- **MAE:** $196,893.50
+- **RMSE:** $317,437.32
+
+**Final Model Performance (Random Forest):**
+- **MAE:** $30,012.54
+- **RMSE:** $57,467.16
+
+#### Performance Comparison
+| Metric          | Baseline Model (Linear Regression) | Final Model (Random Forest) |
+|------------------|------------------------------------|-----------------------------|
+| **MAE**         | $196,893.50                        | $30,012.54                 |
+| **RMSE**        | $317,437.32                        | $57,467.16                 |
+
+The final model's performance indicates a strong ability to predict outage costs accurately, driven by its ability to handle non-linearities and feature interactions.
+
+The final model substantially outperforms the baseline model, reducing the RMSE by over 80%. This improvement reflects the Random Forest's ability to model complex relationships and capture the interactions of data in the outages data set
+
+---
+
+### Model Evaluation
+
+The final model is decent at predicting costs.
+1. It demonstrates a significant reduction in prediction errors compared to the baseline.
+2. Cross-validation ensured robustness, reducing the likelihood of overfitting.
+3. The errors in price are relativeely small in scale to total costs of outages, which can be in the millions.
+
 <iframe src="assets/model_performance.html" width="800" height="600" frameborder="0"></iframe>
 
 ---
-
-## Next Steps
-
-To further refine the model:
-1. Investigate and address the outliers to reduce prediction errors.
-2. Experiment with alternative algorithms, such as Gradient Boosting or XGBoost, for potential performance gains.
-3. Incorporate additional features, such as regional economic activity or weather data, to improve model robustness.
-
-The current pipeline serves as a strong baseline for understanding the cost drivers of power outages and can be expanded with additional data or refined for specific use cases.
-
-This analysis revealed that the cost of power outages is heavily influenced by commercial sales and population density. By leveraging a tuned Random Forest model, we improved prediction accuracy significantly, providing actionable insights for resource planning.
