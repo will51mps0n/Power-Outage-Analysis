@@ -12,7 +12,7 @@ This project investigates a dataset documenting major power outages in the  U.S.
 
 My analysis began with data cleaning and exploratory data analysis. I cleaned the dataset and conducted analysis to gain a foundational understanding of the information provided, including distributions, trends, and relationships between key variables. I then investigated and imputed missing values.
 
-My research focuses on identifying the main factors that influence the cost of a power outage. By understanding these influences, energy companies and policymakers can make informed decisions about resource allocation, infrastructure investments, and preventative measures to minimize financial impacts and improve overall resilience.
+My research focused on identifying the main factors that influence the cost of a power outage. By understanding these influences, energy companies and policymakers can make informed decisions about resource allocation, infrastructure investments, and preventative measures to minimize financial impacts and improve overall resilience.
 
 The data set contains 36 rows and over 1000 outages. For this analysis, I concentrated on a subset of columns directly relevant to understanding the causes and costs of power outages.
 
