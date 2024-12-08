@@ -10,8 +10,6 @@ This project investigates a dataset documenting major power outages in the  U.S.
 
  The data was accessed from Purdue University’s Laboratory for Advancing Sustainable Critical Infrastructure (LASCI)
 
-The dataset provides detailed information about major outages, including financial breakdowns, demographics of customers affected, and geographic in
-
 My analysis began with data cleaning and exploratory data analysis. I cleaned the dataset and conducted analysis to gain a foundational understanding of the information provided, including distributions, trends, and relationships between key variables. I then investigated and imputed missing values.
 
 My research focuses on identifying the main factors that influence the cost of a power outage. By understanding these influences, energy companies and policymakers can make informed decisions about resource allocation, infrastructure investments, and preventative measures to minimize financial impacts and improve overall resilience.
