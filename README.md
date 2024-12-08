@@ -8,7 +8,7 @@ By Adam Simpson
 
 This project investigates a dataset documenting major power outages in the  U.S. from January 2000 to July 2016. The dataset provides details about outages' causes, geographical locations, climatic conditions, economic impacts, and characteristics of the affected areas. 
 
-The dataset tracks significant power outages in the a single U.S. state at the time of occurrence. It was accessed from Purdue University’s Laboratory for Advancing Sustainable Critical Infrastructure (LASCI)
+ The data was accessed from Purdue University’s Laboratory for Advancing Sustainable Critical Infrastructure (LASCI)
 
 The dataset provides detailed information about major outages, including financial breakdowns, demographics of customers affected, and geographic in
 
