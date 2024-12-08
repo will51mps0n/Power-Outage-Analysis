@@ -183,9 +183,6 @@ This pivot table analysis complements the broader exploration of energy usage an
 #### Cost vs. Customers Affected
 Next, I explored the relationship between the number of customers affected and the total cost of outages. I chose this analysis to identify how customer impact translates into financial loss. The scatter plot below reveals a strong positive relationship between these two variables, where larger outages tend to mean higher costs. 
 
-This highlights:
-- **High-Impact Events:** Severe weather and fuel supply emergencies often cluster in the high-cost, high-impact range, they are therefore typically expensive.
-- **Variability in Costs:** Outages caused by intentional attacks show a wide range of costs despite affecting fewer customers, reflecting localized but costly impacts - these are likely harder to model.
 <iframe src="assets/cost_vs_customers.html" width="800" height="600" frameborder="0"></iframe>
 ## Model Pipeline
 
